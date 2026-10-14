@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity 
 public class Product {
@@ -12,22 +14,23 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String price;
-    private String stock;
+    private Double price;
+    private int stock;
+    @ManyToOne 
+    @JoinColumn (name = "category_id")
+    private Category category;
 
-    // 1. CONSTRUCTOR VACÍO OBLIGATORIO PARA JPA
+
     public Product() {
     }
 
-    // 2. CONSTRUCTOR CON PARÁMETROS
-    public Product(Long id, String name, String price, String stock) {
+    public Product(Long id, String name, Double price, int stock, Category category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.stock = stock;
+        this.category = category;
     }
-
-    // GETTERS Y SETTERS
     public Long getId() {
         return id;
     }
@@ -40,16 +43,26 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
-    public String getStock() {
+    public int getStock() {
         return stock;
     }
-    public void setStock(String stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
+    public Category getCategory() {
+        return category;
+    }
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+
 }
+   
+   
